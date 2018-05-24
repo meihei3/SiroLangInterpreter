@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <title>SIRO Language Interpreter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    <h1>SIRO Language Interpreter</h1>
+    <p>Resize this responsive page to see the effect!</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Commands</h3>
+            The eight language commands each consist of the sayings of Siro:
+            <table class="table table-hover table-sm ">
+                <thead>
+                <tr>
+                    <th scope="col">command</th>
+                    <th scope="col">Meaning</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">いーねっ！</th>
+                    <td>increment the data pointer (to point to the next cell to the right).</td>
+                </tr>
+                <tr>
+                    <th scope="row">おほほい</th>
+                    <td>increment (increase by one) the byte at the data pointer.</td>
+                </tr>
+                <tr>
+                    <th scope="row">ｷｭｰｲ</th>
+                    <td>decrement the data pointer (to point to the next cell to the left).</td>
+                </tr>
+                <tr>
+                    <th scope="row">ぱいーん</th>
+                    <td>decrement (decrease by one) the byte at the data pointer</td>
+                </tr>
+                <tr>
+                    <th scope="row">白組さん</th>
+                    <td>if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching '救済' command.</td>
+                </tr>
+                <tr>
+                    <th scope="row">救済</th>
+                    <td>if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching '白組さん' command.</td>
+                </tr>
+                <tr>
+                    <th scope="row">なんて日だ！</th>
+                    <td>output the byte at the data pointer.</td>
+                </tr>
+                <tr>
+                    <th scope="row">ズンドコズンドコ♪</th>
+                    <td>accept one byte of input, storing its value in the byte at the data pointer.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <h3>Interpreter</h3>
+            <div class="form-group">
+                <label for="source">Source</label>
+                <textarea class="form-control" rows="15" id="source"></textarea>
+            </div>
+            <div class="clearfix">
+                <input class="btn btn-primary float-right m-1" value="実行" onclick="">
+                <input class="btn btn-success float-right m-1" value="サンプル" onclick="">
+            </div>
+            <p>Result</p>
+            <div class="card card-body bg-light">
+                <p id="out">result</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
