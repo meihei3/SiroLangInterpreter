@@ -50,7 +50,13 @@ function fuck(docstr){
     let count_commands = 0;
 
     // read the source file
-    const commands = sourceToCommands(docstr);
+    let commands;
+    try {
+        commands = sourceToCommands(docstr);
+    } catch (e) {
+        // return the error message directly to the output element
+        return e;
+    }
 
     // main loop
     const start_time = Date.now();
@@ -92,6 +98,29 @@ function fuck(docstr){
     return output;
 }
 
+// check if the parentheses (begin/end loop symbols) are valid
+function checkJumpCommands(commands) {
+    let c = 0;
+    for (const command of commands) {
+        if (command.is(begin_loop)) {
+            c++;
+        } else if (command.is(end_loop)) {
+            c--;
+        }
+        if (c < 0) {
+            return {'result': false, 'message': `Unexpected ${ end_loop.name }!`};
+        }
+    }
+    if (c !== 0) {
+        if (c > 0) {
+            return {'result': false, 'message': `Too many ${ begin_loop.name }!`};
+        } else {
+            return {'result': false, 'message': `Too many ${ end_loop.name }!`};
+        }
+    }
+    return {'result': true};
+}
+
 // find the right jump target
 function jumpRight(commands, ptr){
     const cmdSize = commands.length;
@@ -129,8 +158,8 @@ function jumpLeft(commands, ptr){
 function sourceToCommands(src){
     const all_names = all_command_types.map((command_type) => {return command_type.name});
     const pattern = RegExp(`(${ all_names.join('|') })`, 'g');
-    const result_with_string = src.match(pattern);
-    if (result_with_string === null) {
+    const commands_in_string = src.match(pattern);
+    if (commands_in_string === null) {
         return [];
     }
     function getCorrespondingCommand(name) {
@@ -141,9 +170,13 @@ function sourceToCommands(src){
         }
         throw `ValueError: No such command ${ name }`;
     }
-    const result_without_jump_info = result_with_string.map(getCorrespondingCommand);
-    const result = addJumpInfoToCommands(result_without_jump_info);
-    return result;
+    const commands_without_jump_info = commands_in_string.map(getCorrespondingCommand);
+    const check_result = checkJumpCommands(commands_without_jump_info);
+    if (!check_result['result']) {
+        throw `ParseError: ${ check_result['message'] }`;
+    }
+    const commands = addJumpInfoToCommands(commands_without_jump_info);
+    return commands;
 }
 
 function addJumpInfoToCommands(commands) {
