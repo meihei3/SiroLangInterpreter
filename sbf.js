@@ -1,8 +1,8 @@
 // enum commands
 class CommandType {
     constructor(num, name) {
-	this.num = num;
-	this.name = name;
+        this.num = num;
+        this.name = name;
     }
 }
 const inc_ptr = new CommandType(0, 'いーねっ！');
@@ -14,6 +14,17 @@ const end_loop = new CommandType(5, '救済');
 const std_input = new CommandType(6, 'ズンドコズンドコ♪');
 const std_output = new CommandType(7, 'なんて日だ！');
 const all_command_types = [inc_ptr, dec_ptr, inc_val, dec_val, begin_loop, end_loop, std_input, std_output];
+
+class Command {
+    constructor(type, jump_to=null) {
+        this.type = type;
+        this.jump_to = jump_to;
+    }
+
+    is(command_type) {
+        return Object.is(this.type, command_type);
+    }
+}
 
 function run(){
     const doc = document.getElementById('source').value;
@@ -34,33 +45,33 @@ function fuck(docstr){
     let output = "";
 
     function jumpRight(ptr){
-    	let c = 1;
-    	while(ptr < cmdSize && c > 0){
-    	    ptr++;
-	    const command = commands[ptr];
-    	    if (Object.is(command, begin_loop)) {
-		c++;
-	    }
-	    if (Object.is(command, end_loop)) {
-		c--;
-	    }
-    	}
-    	return ptr - 1;
+        let c = 1;
+        while(ptr < cmdSize && c > 0){
+            ptr++;
+            const command = commands[ptr];
+            if (command.is(begin_loop)) {
+                c++;
+            }
+            if (command.is(end_loop)) {
+                c--;
+            }
+        }
+        return ptr - 1;
     }
 
     function jumpLeft(ptr){
-    	let c = 1;
-    	while(ptr < cmdSize && c > 0){
-    	    ptr--;
-	    const command = commands[ptr];
-	    if (Object.is(command, end_loop)) {
-		c++;
-	    }
-	    if (Object.is(command, begin_loop)) {
-		c--;
-	    }
-    	}
-    	return ptr - 1;
+        let c = 1;
+        while(ptr < cmdSize && c > 0){
+            ptr--;
+            const command = commands[ptr];
+            if (command.is(end_loop)) {
+                c++;
+            }
+            if (command.is(begin_loop)) {
+                c--;
+            }
+        }
+        return ptr - 1;
     }
 
     const limit = 10000;
@@ -78,28 +89,28 @@ function fuck(docstr){
         }
         cnt++;
 
-	const command = commands[cmdptr];
-	if (Object.is(command, inc_val)) {
-	    cells[cellptr]++;
-	} else if (Object.is(command, dec_val)) {
-	    cells[cellptr]--;
-	} else if (Object.is(command, inc_ptr)) {
-	    cellptr++;
-	} else if (Object.is(command, dec_ptr)) {
-	    cellptr--;
-	} else if (Object.is(command, begin_loop)) {
-	    if (cells[cellptr] === 0) {
-		cmdptr = jumpRight(cmdptr);
-	    }
-	} else if (Object.is(command, end_loop)) {
-	    if (cells[cellptr] !== 0) {
-		cmdptr = jumpLeft(cmdptr);
-	    }
-	} else if (Object.is(command, std_output)) {
-	    output += String.fromCharCode(cells[cellptr]);
-	} else if (Object.is(command, std_input)) {
-	    return `Sorry, the command ${ command.name } is currently not supported. Thanks!`;
-	}
+        const command = commands[cmdptr];
+        if (command.is(inc_val)) {
+            cells[cellptr]++;
+        } else if (command.is(dec_val)) {
+            cells[cellptr]--;
+        } else if (command.is(inc_ptr)) {
+            cellptr++;
+        } else if (command.is(dec_ptr)) {
+            cellptr--;
+        } else if (command.is(begin_loop)) {
+            if (cells[cellptr] === 0) {
+                cmdptr = jumpRight(cmdptr);
+            }
+        } else if (command.is(end_loop)) {
+            if (cells[cellptr] !== 0) {
+                cmdptr = jumpLeft(cmdptr);
+            }
+        } else if (command.is(std_output)) {
+            output += String.fromCharCode(cells[cellptr]);
+        } else if (command.is(std_input)) {
+            return `Sorry, the command ${ command.name } is currently not supported. Thanks!`;
+        }
     }
 
     return output;
@@ -110,20 +121,24 @@ function sourceToCommands(src){
     const pattern = RegExp(`(${ all_names.join('|') })`, 'g');
     const result_with_string = src.match(pattern);
     if (result_with_string === null) {
-	return null;
+        return null;
     }
     // seems little bit ugly, but the computation cost is up to O(NM)
     // where N equals to # of commands and M equals to # of kind of commands
     function getCorrespondingCommand(name) {
-	for (const command_type of all_command_types) {
-	    if (name === command_type.name) {
-		return command_type;
-	    }
-	}
-	throw `ValueError: No such command ${ name }`;
+        for (const command_type of all_command_types) {
+            if (name === command_type.name) {
+                return new Command(command_type);
+            }
+        }
+        throw `ValueError: No such command ${ name }`;
     }
     const result = result_with_string.map(getCorrespondingCommand);
     return result;
+}
+
+function addJumpInfoToCommands(commands) {
+
 }
 
 function sampleCode() {
