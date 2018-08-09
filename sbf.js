@@ -62,7 +62,7 @@ function fuck(docstr){
             if (delta_time > max_conputational_time) {
                 return `RunTimeError: Computation timed out after ${maxConputationalTime} ms. May be infinite loop?`;
             }
-	    count_commands = 0;
+            count_commands = 0;
         }
 
         const command = commands[cmdptr];
@@ -149,10 +149,10 @@ function sourceToCommands(src){
 function addJumpInfoToCommands(commands) {
     for (let [command_ptr, command] of commands.entries()) {
         if (command.is(begin_loop)) {
-	    command.jump_to = jumpRight(commands, command_ptr);
-	} else if (command.is(end_loop)) {
-	    command.jump_to = jumpLeft(commands, command_ptr);
-	}
+            command.jump_to = jumpRight(commands, command_ptr);
+        } else if (command.is(end_loop)) {
+            command.jump_to = jumpLeft(commands, command_ptr);
+        }
     }
     return commands;
 }
