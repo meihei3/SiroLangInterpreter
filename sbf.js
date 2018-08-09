@@ -1,4 +1,4 @@
-// enum commands
+// enum command types
 class CommandType {
     constructor(num, name) {
         this.num = num;
@@ -15,6 +15,7 @@ const std_input = new CommandType(6, 'ズンドコズンドコ♪');
 const std_output = new CommandType(7, 'なんて日だ！');
 const all_command_types = [inc_ptr, dec_ptr, inc_val, dec_val, begin_loop, end_loop, std_input, std_output];
 
+// each command (atomic words in a source code)
 class Command {
     constructor(type, jump_to=null) {
         this.type = type;
@@ -26,38 +27,43 @@ class Command {
     }
 }
 
+// main entry
 function run(){
     const doc = document.getElementById('source').value;
     document.getElementById('out').innerHTML = fuck(doc);
 }
 
+// f**k the brain
 function fuck(docstr){
-    const commands = sourceToCommands(docstr);
-    if (commands == null)
-        return "";
-    const cmdSize = commands.length
+    // const settings
+    const memory_size = 100000;
+    const max_conputational_time = 1000; // unit: milliseconds
+    const num_commands_to_check_time = 10000;
 
-    const cells = new Array(10000);
+    // memory cells
+    const cells = new Array(memory_size);
     cells.fill(0);
     let cellptr = 0;
-    let cmdptr = 0;
 
+    // other unconst values
     let output = "";
+    let count_commands = 0;
 
-    const limit = 10000;
-    let cnt = 0;
+    // read the source file
+    const commands = sourceToCommands(docstr);
 
-    const startTime = Date.now();
-    const maxConputationalTime = 1000; // unit: milliseconds
-
-    for(;cmdptr < cmdSize; cmdptr++) {
-        if (cnt > limit) {
-            const deltaTime = Date.now() - startTime;
-            if (deltaTime > maxConputationalTime) {
+    // main loop
+    const start_time = Date.now();
+    const cmdSize = commands.length
+    for(let cmdptr = 0; cmdptr < cmdSize; cmdptr++) {
+        count_commands++;
+        if (count_commands % num_commands_to_check_time === 0) {
+            const delta_time = Date.now() - start_time;
+            if (delta_time > max_conputational_time) {
                 return `RunTimeError: Computation timed out after ${maxConputationalTime} ms. May be infinite loop?`;
             }
+	    count_commands = 0;
         }
-        cnt++;
 
         const command = commands[cmdptr];
         if (command.is(inc_val)) {
@@ -86,6 +92,7 @@ function fuck(docstr){
     return output;
 }
 
+// find the right jump target
 function jumpRight(commands, ptr){
     const cmdSize = commands.length;
     let c = 1;
@@ -101,6 +108,7 @@ function jumpRight(commands, ptr){
     }
     return ptr - 1;
 }
+// find the left jump target
 function jumpLeft(commands, ptr){
     const cmdSize = commands.length;
     let c = 1;
@@ -117,15 +125,14 @@ function jumpLeft(commands, ptr){
     return ptr - 1;
 }
 
+// read the source code and convert it into a sequence of commands
 function sourceToCommands(src){
     const all_names = all_command_types.map((command_type) => {return command_type.name});
     const pattern = RegExp(`(${ all_names.join('|') })`, 'g');
     const result_with_string = src.match(pattern);
     if (result_with_string === null) {
-        return null;
+        return [];
     }
-    // seems little bit ugly, but the computation cost is up to O(NM)
-    // where N equals to # of commands and M equals to # of kind of commands
     function getCorrespondingCommand(name) {
         for (const command_type of all_command_types) {
             if (name === command_type.name) {
