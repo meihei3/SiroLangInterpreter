@@ -1,19 +1,19 @@
 // enum commands
-class Command {
+class CommandType {
     constructor(num, name) {
 	this.num = num;
 	this.name = name;
     }
 }
-const inc_ptr = new Command(0, 'いーねっ！');
-const dec_ptr = new Command(1, 'ｷｭｰｲ');
-const inc_val = new Command(2, 'おほほい');
-const dec_val = new Command(3, 'ぱいーん');
-const begin_loop = new Command(4, '白組さん');
-const end_loop = new Command(5, '救済');
-const std_input = new Command(6, 'ズンドコズンドコ♪');
-const std_output = new Command(7, 'なんて日だ！');
-const all_commands = [inc_ptr, dec_ptr, inc_val, dec_val, begin_loop, end_loop, std_input, std_output];
+const inc_ptr = new CommandType(0, 'いーねっ！');
+const dec_ptr = new CommandType(1, 'ｷｭｰｲ');
+const inc_val = new CommandType(2, 'おほほい');
+const dec_val = new CommandType(3, 'ぱいーん');
+const begin_loop = new CommandType(4, '白組さん');
+const end_loop = new CommandType(5, '救済');
+const std_input = new CommandType(6, 'ズンドコズンドコ♪');
+const std_output = new CommandType(7, 'なんて日だ！');
+const all_command_types = [inc_ptr, dec_ptr, inc_val, dec_val, begin_loop, end_loop, std_input, std_output];
 
 function run(){
     const doc = document.getElementById('source').value;
@@ -106,23 +106,23 @@ function fuck(docstr){
 }
 
 function sourceToCommands(src){
-    const all_names = all_commands.map((command) => {return command.name});
+    const all_names = all_command_types.map((command_type) => {return command_type.name});
     const pattern = RegExp(`(${ all_names.join('|') })`, 'g');
-    const resultWithString = src.match(pattern);
-    if (resultWithString === null) {
+    const result_with_string = src.match(pattern);
+    if (result_with_string === null) {
 	return null;
     }
     // seems little bit ugly, but the computation cost is up to O(NM)
     // where N equals to # of commands and M equals to # of kind of commands
     function getCorrespondingCommand(name) {
-	for (const command of all_commands) {
-	    if (name === command.name) {
-		return command;
+	for (const command_type of all_command_types) {
+	    if (name === command_type.name) {
+		return command_type;
 	    }
 	}
 	throw `ValueError: No such command ${ name }`;
     }
-    const result = resultWithString.map(getCorrespondingCommand);
+    const result = result_with_string.map(getCorrespondingCommand);
     return result;
 }
 
