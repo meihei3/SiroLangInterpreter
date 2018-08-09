@@ -43,9 +43,16 @@ function fuck(docstr){
     var limit = 10000
     var cnt = 0
 
+    const startTime = Date.now();
+    const maxConputationalTime = 1000; // unit: milliseconds
+
     for(;cmdptr < cmdSize; cmdptr++) {
-        if (cnt > limit)
-            return "RunTimeError: This is so complex code.";
+        if (cnt > limit) {
+            const deltaTime = Date.now() - startTime;
+            if (deltaTime > maxConputationalTime) {
+                return `RunTimeError: Computation timed out after ${maxConputationalTime} ms. May be infinite loop?`;
+            }
+        }
         cnt++;
 
         switch(commands[cmdptr]) {
