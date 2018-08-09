@@ -44,36 +44,6 @@ function fuck(docstr){
 
     let output = "";
 
-    function jumpRight(ptr){
-        let c = 1;
-        while(ptr < cmdSize && c > 0){
-            ptr++;
-            const command = commands[ptr];
-            if (command.is(begin_loop)) {
-                c++;
-            }
-            if (command.is(end_loop)) {
-                c--;
-            }
-        }
-        return ptr - 1;
-    }
-
-    function jumpLeft(ptr){
-        let c = 1;
-        while(ptr < cmdSize && c > 0){
-            ptr--;
-            const command = commands[ptr];
-            if (command.is(end_loop)) {
-                c++;
-            }
-            if (command.is(begin_loop)) {
-                c--;
-            }
-        }
-        return ptr - 1;
-    }
-
     const limit = 10000;
     let cnt = 0;
 
@@ -100,11 +70,11 @@ function fuck(docstr){
             cellptr--;
         } else if (command.is(begin_loop)) {
             if (cells[cellptr] === 0) {
-                cmdptr = jumpRight(cmdptr);
+                cmdptr = command.jump_to;
             }
         } else if (command.is(end_loop)) {
             if (cells[cellptr] !== 0) {
-                cmdptr = jumpLeft(cmdptr);
+                cmdptr = command.jump_to;
             }
         } else if (command.is(std_output)) {
             output += String.fromCharCode(cells[cellptr]);
@@ -114,6 +84,37 @@ function fuck(docstr){
     }
 
     return output;
+}
+
+function jumpRight(commands, ptr){
+    const cmdSize = commands.length;
+    let c = 1;
+    while(ptr < cmdSize && c > 0){
+        ptr++;
+        const command = commands[ptr];
+        if (command.is(begin_loop)) {
+            c++;
+        }
+        if (command.is(end_loop)) {
+            c--;
+        }
+    }
+    return ptr - 1;
+}
+function jumpLeft(commands, ptr){
+    const cmdSize = commands.length;
+    let c = 1;
+    while(ptr < cmdSize && c > 0){
+        ptr--;
+        const command = commands[ptr];
+        if (command.is(end_loop)) {
+            c++;
+        }
+        if (command.is(begin_loop)) {
+            c--;
+        }
+    }
+    return ptr - 1;
 }
 
 function sourceToCommands(src){
@@ -133,12 +134,20 @@ function sourceToCommands(src){
         }
         throw `ValueError: No such command ${ name }`;
     }
-    const result = result_with_string.map(getCorrespondingCommand);
+    const result_without_jump_info = result_with_string.map(getCorrespondingCommand);
+    const result = addJumpInfoToCommands(result_without_jump_info);
     return result;
 }
 
 function addJumpInfoToCommands(commands) {
-
+    for (let [command_ptr, command] of commands.entries()) {
+        if (command.is(begin_loop)) {
+	    command.jump_to = jumpRight(commands, command_ptr);
+	} else if (command.is(end_loop)) {
+	    command.jump_to = jumpLeft(commands, command_ptr);
+	}
+    }
+    return commands;
 }
 
 function sampleCode() {
