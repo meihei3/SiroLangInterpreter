@@ -1,23 +1,23 @@
 function run(){
-    var doc = document.getElementById('source').value;
+    const doc = document.getElementById('source').value;
     document.getElementById('out').innerHTML = fuck(doc);
 }
 
 function fuck(docstr){
-    var commands = cleanUp(docstr);
+    const commands = cleanUp(docstr);
     if (commands == null)
         return "";
-    var cmdSize = commands.length
+    const cmdSize = commands.length
 
-    var cells = new Array(10000);
+    const cells = new Array(10000);
     cells.fill(0);
-    var cellptr = 0;
-    var cmdptr = 0;
+    let cellptr = 0;
+    let cmdptr = 0;
 
-    var output = "";
+    let output = "";
 
     function jumpRight(ptr){
-    	var c = 1;
+    	let c = 1;
     	while(ptr < cmdSize && c > 0){
     	    ptr++;
     	    if(commands[ptr] === '白組さん')
@@ -29,7 +29,7 @@ function fuck(docstr){
     }
 
     function jumpLeft(ptr){
-    	var c = 1;
+    	let c = 1;
     	while(ptr < cmdSize && c > 0){
     	    ptr--;
     	    if(commands[ptr] === '救済')
@@ -40,8 +40,8 @@ function fuck(docstr){
     	return ptr - 1;
     }
 
-    var limit = 10000
-    var cnt = 0
+    const limit = 10000
+    let cnt = 0
 
     const startTime = Date.now();
     const maxConputationalTime = 1000; // unit: milliseconds
@@ -95,12 +95,12 @@ function fuck(docstr){
 }
 
 function cleanUp(src){
-    var result = src.match(/(いーねっ！|おほほい|ｷｭｰｲ|ぱいーん|白組さん|救済|なんて日だ！|ズンドコズンドコ♪)/g);
+    const result = src.match(/(いーねっ！|おほほい|ｷｭｰｲ|ぱいーん|白組さん|救済|なんて日だ！|ズンドコズンドコ♪)/g);
     return result;
 }
 
 function sampleCode() {
-    var code = "おほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほい白組さんいーねっ！"
+    const code = "おほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほい白組さんいーねっ！"
              + "おほほいいーねっ！おほほいおほほいおほほいいーねっ！おほほいおほほいおほほいおほほいおほほいおほほいおほほいいーねっ！"
              + "おほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいおほほいｷｭｰｲｷｭｰｲｷｭｰｲｷｭｰｲぱいーん救済いーねっ！"
              + "いーねっ！いーねっ！おほほいおほほいなんて日だ！いーねっ！おほほいなんて日だ！おほほいおほほいおほほいおほほいおほほい"
