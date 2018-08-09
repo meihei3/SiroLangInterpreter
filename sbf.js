@@ -21,7 +21,7 @@ function run(){
 }
 
 function fuck(docstr){
-    const commands = cleanUp(docstr);
+    const commands = sourceToCommands(docstr);
     if (commands == null)
         return "";
     const cmdSize = commands.length
@@ -105,7 +105,7 @@ function fuck(docstr){
     return output;
 }
 
-function cleanUp(src){
+function sourceToCommands(src){
     const all_names = all_commands.map((command) => {return command.name});
     const pattern = RegExp(`(${ all_names.join('|') })`, 'g');
     const resultWithString = src.match(pattern);
