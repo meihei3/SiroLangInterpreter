@@ -91,7 +91,7 @@ function fuck(docstr){
         } else if (command.is(std_output)) {
             output += String.fromCharCode(cells[cellptr]);
         } else if (command.is(std_input)) {
-            return `Sorry, the command ${ command.name } is currently not supported. Thanks!`;
+            return `Sorry, the command ${ command.type.name } is currently not supported. Thanks!`;
         }
     }
 
