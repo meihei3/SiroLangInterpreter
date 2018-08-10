@@ -66,7 +66,7 @@ function fuck(docstr){
         if (count_commands % num_commands_to_check_time === 0) {
             const delta_time = Date.now() - start_time;
             if (delta_time > max_conputational_time) {
-                return `RunTimeError: Computation timed out after ${maxConputationalTime} ms. May be infinite loop?`;
+                return `RunTimeError: Computation timed out after ${max_computational_time} ms. May be infinite loop?`;
             }
             count_commands = 0;
         }
