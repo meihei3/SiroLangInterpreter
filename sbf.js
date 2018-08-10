@@ -179,6 +179,7 @@ function sourceToCommands(src){
     return commands;
 }
 
+// pre-calculate the jump target to reduce the main computational time
 function addJumpInfoToCommands(commands) {
     for (let [command_ptr, command] of commands.entries()) {
         if (command.is(begin_loop)) {
