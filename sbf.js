@@ -60,8 +60,8 @@ function fuck(docstr){
 
     // main loop
     const start_time = Date.now();
-    const cmdSize = commands.length
-    for(let cmdptr = 0; cmdptr < cmdSize; cmdptr++) {
+    const cmd_size = commands.length
+    for(let cmdptr = 0; cmdptr < cmd_size; cmdptr++) {
         count_commands++;
         if (count_commands % num_commands_to_check_time === 0) {
             const delta_time = Date.now() - start_time;
@@ -123,9 +123,9 @@ function checkJumpCommands(commands) {
 
 // find the right jump target
 function jumpRight(commands, ptr){
-    const cmdSize = commands.length;
+    const cmd_size = commands.length;
     let c = 1;
-    while(ptr < cmdSize && c > 0){
+    while(ptr < cmd_size && c > 0){
         ptr++;
         const command = commands[ptr];
         if (command.is(begin_loop)) {
@@ -139,9 +139,9 @@ function jumpRight(commands, ptr){
 }
 // find the left jump target
 function jumpLeft(commands, ptr){
-    const cmdSize = commands.length;
+    const cmd_size = commands.length;
     let c = 1;
-    while(ptr < cmdSize && c > 0){
+    while(ptr < cmd_size && c > 0){
         ptr--;
         const command = commands[ptr];
         if (command.is(end_loop)) {
