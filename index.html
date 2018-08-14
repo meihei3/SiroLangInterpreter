@@ -47,53 +47,53 @@
 
 <div class="jumbotron text-center">
     <h1>SIRO Language Interpreter</h1>
-    <p>Siro-chan's videos are so helpful, isn't it?</p>
+    <p>シロちゃんの動画は為になるなぁ</p>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h3>Commands</h3>
-            <p>The eight language commands each consist of the sayings of Siro:</p>
+            <h3>Siro言語仕様</h3>
+            <p>シロちゃんの名言を命令にする。それ以外の文字は無視する。</p>
             <table class="table table-hover table-sm">
                 <thead>
                 <tr>
-                    <th scope="col">command</th>
-                    <th scope="col">Meaning</th>
+                    <th scope="col">命令</th>
+                    <th scope="col">役割</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row">いーねっ！</th>
-                    <td>increment the data pointer (to point to the next cell to the right).</td>
+                    <td>ポインタを１進める</td>
                 </tr>
                 <tr>
                     <th scope="row">おほほい</th>
-                    <td>increment (increase by one) the byte at the data pointer.</td>
+                    <td>ポインタの指す要素の値を１増やす。</td>
                 </tr>
                 <tr>
                     <th scope="row">ｷｭｰｲ</th>
-                    <td>decrement the data pointer (to point to the next cell to the left).</td>
+                    <td>ポインタを１戻す。</td>
                 </tr>
                 <tr>
                     <th scope="row">ぱいーん</th>
-                    <td>decrement (decrease by one) the byte at the data pointer</td>
+                    <td>ポインタの指す要素の値を１減らす。</td>
                 </tr>
                 <tr>
                     <th scope="row">白組さん</th>
-                    <td>if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching '救済' command.</td>
+                    <td>ポインタの指す要素の値が"0"だったら対応する次の"救済"までジャンプ。</td>
                 </tr>
                 <tr>
                     <th scope="row">救済</th>
-                    <td>if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching '白組さん' command.</td>
+                    <td>対応する前の "白組さん" までジャンプ。</td>
                 </tr>
                 <tr>
                     <th scope="row">なんて日だ！</th>
-                    <td>output the byte at the data pointer.</td>
+                    <td>ポインタの指す要素の値を外に出力。</td>
                 </tr>
                 <tr>
                     <th scope="row">ズンドコズンドコ♪</th>
-                    <td>accept one byte of input, storing its value in the byte at the data pointer.</td>
+                    <td>外から値を入力して、ポインタの指す場所へ入れる。</td>
                 </tr>
                 </tbody>
             </table>
@@ -101,14 +101,14 @@
         <div class="col-md-8">
             <h3>Interpreter</h3>
             <div class="form-group">
-                <label for="source">Source</label>
+                <label for="source">プログラム</label>
                 <textarea class="form-control" rows="15" id="source"></textarea>
             </div>
             <div class="clearfix">
-                <a class="btn btn-primary float-right m-1 px-5" href="javascript:void(0)" onclick="run()">Run</a>
-                <a class="btn btn-success float-right m-1 px-5" href="javascript:void(0)" onclick="sampleCode()">Sample</a>
+                <a class="btn btn-primary float-right m-1 px-5" href="javascript:void(0)" onclick="run()">実行</a>
+                <a class="btn btn-success float-right m-1 px-5" href="javascript:void(0)" onclick="sampleCode()">サンプルコード</a>
             </div>
-            <p>Result</p>
+            <p>実行結果</p>
             <div class="card card-body bg-light">
                 <pre id="out"></pre>
             </div>
