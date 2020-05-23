@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/yameholo/SiroLangInterpreter#readme",
   "devDependencies": {
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
     "prettier": "^2.0.5",
     "stylelint": "^13.5.0",
     "stylelint-config-prettier": "^8.0.1",
