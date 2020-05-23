@@ -11,5 +11,5 @@
 
 body,
 pre {
-  font-family: "TofuFont" !important;
+  font-family: "TofuFont", sans-serif !important;
 }

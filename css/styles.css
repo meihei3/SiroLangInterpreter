@@ -5,10 +5,10 @@ html {
 }
 
 .jumbotron {
-  background: url("../img/siro_working.png") center no-repeat;
+  background: url(../img/siro_working.png) center no-repeat;
   background-size: cover;
 }
 
 body {
-  font-family: 'M PLUS 1p', sans-serif;
+  font-family: "M PLUS 1p", sans-serif;
 }
