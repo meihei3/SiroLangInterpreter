@@ -5,11 +5,11 @@
  */
 
 @font-face {
-  font-family: "TofuFont";
+  font-family: 'TofuFont';
   src: url(../font/TofuFont_0.23.otf);
 }
 
 body,
 pre {
-  font-family: "TofuFont" !important;
+  font-family: 'TofuFont', sans-serif !important;
 }

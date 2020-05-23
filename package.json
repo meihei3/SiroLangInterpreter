@@ -1,0 +1,32 @@
+{
+  "name": "SiroLangInterpreter",
+  "version": "1.0.0",
+  "description": "[ ˶˙ᴗ˙˶ ]シロ組さん専用のプログラミング言語「siro」をオンライン上で実行できるインタープリター",
+  "main": "sbf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yameholo/SiroLangInterpreter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yameholo/SiroLangInterpreter/issues"
+  },
+  "homepage": "https://github.com/yameholo/SiroLangInterpreter#readme",
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5",
+    "stylelint": "^13.5.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2"
+  },
+  "dependencies": {}
+}

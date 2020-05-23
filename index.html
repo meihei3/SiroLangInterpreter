@@ -1,153 +1,194 @@
 <!DOCTYPE html>
 <html lang="jp">
-<head>
+  <head>
     <title>SIRO Language Interpreter｜シロ言語用のオンライン実行環境</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120056704-1"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-120056704-1"
+    ></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-        gtag('config', 'UA-120056704-1');
+      gtag("config", "UA-120056704-1");
     </script>
 
     <!-- for icon font -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+      crossorigin="anonymous"
+    />
 
     <!-- for model javascript -->
-    <script src="sbf.js"></script>
-</head>
-<body>
+    <script src="js/sbf.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">SIRO Language Interpreter</a>
 
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">SIRO Language Interpreter</a>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbar">
+      <div class="collapse navbar-collapse justify-content-end" id="navbar">
         <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                    JP
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="">日本語</a>
-                    <a class="dropdown-item" href="index-en.html">English</a>
-                    <a class="dropdown-item" href="index-tofu.html">Tofu</a>
-                </div>
-            </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+            >
+              JP
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdown"
+            >
+              <a class="dropdown-item" href="">日本語</a>
+              <a class="dropdown-item" href="index-en.html">English</a>
+              <a class="dropdown-item" href="index-tofu.html">Tofu</a>
+            </div>
+          </li>
         </ul>
+      </div>
+    </nav>
+
+    <div class="jumbotron text-center">
+      <h1>SIRO Language Interpreter</h1>
+      <h4 class="text-muted">シロちゃんの動画は為になるなぁ</h4>
     </div>
-</nav>
 
-<div class="jumbotron text-center">
-    <h1>SIRO Language Interpreter</h1>
-    <h4 class="text-muted">シロちゃんの動画は為になるなぁ</h4>
-</div>
-
-<div class="container">
-    <div class="row">
+    <div class="container">
+      <div class="row">
         <div class="col-md-4">
-            <h3>Siro言語仕様</h3>
-            <p>シロちゃんの名言を命令にする。それ以外の文字は無視する。</p>
-            <table class="table table-hover table-sm">
-                <thead>
-                <tr>
-                    <th scope="col">命令</th>
-                    <th scope="col">役割</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">いーねっ！</th>
-                    <td>ポインタを１進める</td>
-                </tr>
-                <tr>
-                    <th scope="row">おほほい</th>
-                    <td>ポインタの指す要素の値を１増やす。</td>
-                </tr>
-                <tr>
-                    <th scope="row">ｷｭｰｲ</th>
-                    <td>ポインタを１戻す。</td>
-                </tr>
-                <tr>
-                    <th scope="row">ぱいーん</th>
-                    <td>ポインタの指す要素の値を１減らす。</td>
-                </tr>
-                <tr>
-                    <th scope="row">白組さん</th>
-                    <td>ポインタの指す要素の値が"0"だったら対応する次の"救済"までジャンプ。</td>
-                </tr>
-                <tr>
-                    <th scope="row">救済</th>
-                    <td>対応する前の "白組さん" までジャンプ。</td>
-                </tr>
-                <tr>
-                    <th scope="row">なんて日だ！</th>
-                    <td>ポインタの指す要素の値を外に出力。</td>
-                </tr>
-                <tr>
-                    <th scope="row">ズンドコズンドコ♪</th>
-                    <td>外から値を入力して、ポインタの指す場所へ入れる。</td>
-                </tr>
-                </tbody>
-            </table>
+          <h3>Siro言語仕様</h3>
+          <p>シロちゃんの名言を命令にする。それ以外の文字は無視する。</p>
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">命令</th>
+                <th scope="col">役割</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">いーねっ！</th>
+                <td>ポインタを１進める</td>
+              </tr>
+              <tr>
+                <th scope="row">おほほい</th>
+                <td>ポインタの指す要素の値を１増やす。</td>
+              </tr>
+              <tr>
+                <th scope="row">ｷｭｰｲ</th>
+                <td>ポインタを１戻す。</td>
+              </tr>
+              <tr>
+                <th scope="row">ぱいーん</th>
+                <td>ポインタの指す要素の値を１減らす。</td>
+              </tr>
+              <tr>
+                <th scope="row">白組さん</th>
+                <td>
+                  ポインタの指す要素の値が"0"だったら対応する次の"救済"までジャンプ。
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">救済</th>
+                <td>対応する前の "白組さん" までジャンプ。</td>
+              </tr>
+              <tr>
+                <th scope="row">なんて日だ！</th>
+                <td>ポインタの指す要素の値を外に出力。</td>
+              </tr>
+              <tr>
+                <th scope="row">ズンドコズンドコ♪</th>
+                <td>外から値を入力して、ポインタの指す場所へ入れる。</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="col-md-8">
-            <h3>Interpreter</h3>
-            <div class="form-group">
-                <label for="source">プログラム</label>
-                <textarea class="form-control" rows="15" id="source"></textarea>
-            </div>
-            <div class="clearfix">
-                <a class="btn btn-primary float-right m-1 px-5" href="javascript:void(0)" onclick="run()">実行</a>
-                <a class="btn btn-success float-right m-1 px-5" href="javascript:void(0)" onclick="sampleCode()">サンプルコード</a>
-            </div>
-            <p>実行結果</p>
-            <div class="card card-body bg-light">
-                <pre id="out"></pre>
-            </div>
+          <h3>Interpreter</h3>
+          <div class="form-group">
+            <label for="source">プログラム</label>
+            <textarea class="form-control" rows="15" id="source"></textarea>
+          </div>
+          <div class="clearfix">
+            <a
+              class="btn btn-primary float-right m-1 px-5"
+              href="javascript:void(0)"
+              onclick="run()"
+              >実行</a
+            >
+            <a
+              class="btn btn-success float-right m-1 px-5"
+              href="javascript:void(0)"
+              onclick="sampleCode()"
+              >サンプルコード</a
+            >
+          </div>
+          <p>実行結果</p>
+          <div class="card card-body bg-light">
+            <pre id="out"></pre>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-
-<footer class="page-footer font-small bg-dark mt-4">
-    <div class="text-center pt-3">
+    <footer class="page-footer font-small bg-dark mt-4">
+      <div class="text-center pt-3">
         <ul class="list-inline">
-            <li class="list-inline-item">
-                <a class="text-muted" href="https://qiita.com/benisho_ga/items/50e674fded183a9e12f1">
-                    About SIRO-lang
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="text-muted" href="https://twitter.com/app1e_s">
-                    Contact
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="text-muted" href="https://twitter.com/intent/tweet?text=シロ組さん専用のプログラミング言語「siro」オンラインインタープリター&url=https://yameholo.github.io/SiroLangInterpreter">
-                    Share
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="text-muted" href="https://github.com/yameholo/SiroLangInterpreter">
-                    GitHub
-                </a>
-            </li>
+          <li class="list-inline-item">
+            <a
+              class="text-muted"
+              href="https://qiita.com/benisho_ga/items/50e674fded183a9e12f1"
+            >
+              About SIRO-lang
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="https://twitter.com/app1e_s">
+              Contact
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a
+              class="text-muted"
+              href="https://twitter.com/intent/tweet?text=シロ組さん専用のプログラミング言語「siro」オンラインインタープリター&url=https://yameholo.github.io/SiroLangInterpreter"
+            >
+              Share
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a
+              class="text-muted"
+              href="https://github.com/yameholo/SiroLangInterpreter"
+            >
+              GitHub
+            </a>
+          </li>
         </ul>
-    </div>
-    <div class="footer-copyright text-center pb-2 text-muted">© 2018
-        <a href="https://twitter.com/app1e_s">@app1e_s</a>
-    </div>
-</footer>
-
-</body>
+      </div>
+      <div class="footer-copyright text-center pb-2 text-muted">
+        © 2020
+        <a href="https://twitter.com/app1e_s">meiehi</a>
+      </div>
+    </footer>
+  </body>
 </html>
