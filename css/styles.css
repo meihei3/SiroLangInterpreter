@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap");
+html {
+  /* font-size: 62.5%; */
+  font-size: 16px;
+}
+
+.jumbotron {
+  background: url("../img/siro_working.png") center no-repeat;
+  background-size: cover;
+}
+
+body {
+  font-family: 'M PLUS 1p', sans-serif;
+}
