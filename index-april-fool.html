@@ -2,7 +2,7 @@
 <html lang="jp">
 
 <head>
-  <title>SIRO Language Interpreter｜シロ言語用のオンライン実行環境</title>
+  <title>UMA Language Interpreter｜うま言語用のオンライン実行環境</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
@@ -10,16 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
-  <!-- OGP -->
-  <meta property="og:title" content="SIRO Language Interpreter" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yameholo.github.io/SiroLangInterpreter/" />
-  <meta property="og:image" content="https://yameholo.github.io/SiroLangInterpreter/img/ogp.png" />
-  <meta property="og:site_name" content="SIRO Language Interpreter" />
-  <meta property="og:description" content="シロ言語用のオンライン実行環境" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@app1e_s" />
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120056704-1"></script>
@@ -38,45 +28,24 @@
     integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
 
   <!-- for model javascript -->
-  <script src="js/sbf.js"></script>
-  <script>
-    const today = new Date();
-    if (today.getMonth() === 3 && today.getDate() === 1) {
-      location.href = 'https://yameholo.github.io/SiroLangInterpreter/index-april-fool.html'
-    }
-  </script>
+  <script src="js/ubf.js"></script>
 </head>
 
 <body>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">SIRO Language Interpreter</a>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbar">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-            JP
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="">日本語</a>
-            <a class="dropdown-item" href="index-en.html">English</a>
-            <a class="dropdown-item" href="index-tofu.html">Tofu</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <a class="navbar-brand" href="#">UMA Language Interpreter</a>
   </nav>
 
-  <div class="jumbotron text-center">
-    <h1>SIRO Language Interpreter</h1>
-    <h4 class="text-muted">シロちゃんの動画は為になるなぁ</h4>
+  <div class="jumbotron text-center uma">
+    <h1>UMA Language Interpreter</h1>
+    <h4 class="text-muted">はいはいはいはいはいはいはいはい</h4>
   </div>
 
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <h3>Siro言語仕様</h3>
-        <p>シロちゃんの名言を命令にする。それ以外の文字は無視する。</p>
+        <h3>Uma言語仕様</h3>
+        <p>ばあちゃるくんの名言を命令にする。それ以外の文字は無視する。</p>
         <table class="table table-hover table-sm">
           <thead>
             <tr>
@@ -86,37 +55,37 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">いーねっ！</th>
+              <th scope="row">フゥゥゥゥ</th>
               <td>ポインタを１進める</td>
             </tr>
             <tr>
-              <th scope="row">おほほい</th>
+              <th scope="row">ハイ</th>
               <td>ポインタの指す要素の値を１増やす。</td>
             </tr>
             <tr>
-              <th scope="row">ｷｭｰｲ</th>
+              <th scope="row">わきゅ</th>
               <td>ポインタを１戻す。</td>
             </tr>
             <tr>
-              <th scope="row">ぱいーん</th>
+              <th scope="row">🐴</th>
               <td>ポインタの指す要素の値を１減らす。</td>
             </tr>
             <tr>
-              <th scope="row">白組さん</th>
+              <th scope="row">世界初男性youtuberのばあちゃるです！</th>
               <td>
-                ポインタの指す要素の値が"0"だったら対応する次の"救済"までジャンプ。
+                ポインタの指す要素の値が"0"だったら対応する次の"ばあちゃるくん"までジャンプ。
               </td>
             </tr>
             <tr>
-              <th scope="row">救済</th>
-              <td>対応する前の "白組さん" までジャンプ。</td>
+              <th scope="row">ばあちゃるくん</th>
+              <td>対応する前の "世界初男性youtuberのばあちゃるです！" までジャンプ。</td>
             </tr>
             <tr>
-              <th scope="row">なんて日だ！</th>
+              <th scope="row">えぐー！</th>
               <td>ポインタの指す要素の値を外に出力。</td>
             </tr>
             <tr>
-              <th scope="row">ズンドコズンドコ♪</th>
+              <th scope="row">ウビバ</th>
               <td>外から値を入力して、ポインタの指す場所へ入れる。</td>
             </tr>
           </tbody>

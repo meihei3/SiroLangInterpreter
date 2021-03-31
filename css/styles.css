@@ -10,6 +10,10 @@ html {
   background-size: cover;
 }
 
+.jumbotron.uma {
+  background-image: url(../img/uma.png);
+}
+
 body {
   font-family: 'M PLUS 1p', sans-serif;
 }
