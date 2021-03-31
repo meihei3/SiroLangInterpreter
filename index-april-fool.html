@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+  <title>UMA Language Interpreter｜うま言語用のオンライン実行環境</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120056704-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-120056704-1");
+  </script>
+
+  <!-- for icon font -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+
+  <!-- for model javascript -->
+  <script src="js/ubf.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">UMA Language Interpreter</a>
+  </nav>
+
+  <div class="jumbotron text-center uma">
+    <h1>UMA Language Interpreter</h1>
+    <h4 class="text-muted">はいはいはいはいはいはいはいはい</h4>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Uma言語仕様</h3>
+        <p>ばあちゃるくんの名言を命令にする。それ以外の文字は無視する。</p>
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">命令</th>
+              <th scope="col">役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">フゥゥゥゥ</th>
+              <td>ポインタを１進める</td>
+            </tr>
+            <tr>
+              <th scope="row">ハイ</th>
+              <td>ポインタの指す要素の値を１増やす。</td>
+            </tr>
+            <tr>
+              <th scope="row">わきゅ</th>
+              <td>ポインタを１戻す。</td>
+            </tr>
+            <tr>
+              <th scope="row">🐴</th>
+              <td>ポインタの指す要素の値を１減らす。</td>
+            </tr>
+            <tr>
+              <th scope="row">世界初男性youtuberのばあちゃるです！</th>
+              <td>
+                ポインタの指す要素の値が"0"だったら対応する次の"ばあちゃるくん"までジャンプ。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">ばあちゃるくん</th>
+              <td>対応する前の "世界初男性youtuberのばあちゃるです！" までジャンプ。</td>
+            </tr>
+            <tr>
+              <th scope="row">えぐー！</th>
+              <td>ポインタの指す要素の値を外に出力。</td>
+            </tr>
+            <tr>
+              <th scope="row">ウビバ</th>
+              <td>外から値を入力して、ポインタの指す場所へ入れる。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-8">
+        <h3>Interpreter</h3>
+        <div class="form-group">
+          <label for="source">プログラム</label>
+          <textarea class="form-control" rows="15" id="source"></textarea>
+        </div>
+        <div class="clearfix">
+          <a class="btn btn-primary float-right m-1 px-5" href="javascript:void(0)" onclick="run()">実行</a>
+          <a class="btn btn-success float-right m-1 px-5" href="javascript:void(0)" onclick="sampleCode()">サンプルコード</a>
+        </div>
+        <p>実行結果</p>
+        <div class="card card-body bg-light">
+          <pre id="out"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer font-small bg-dark mt-4">
+    <div class="text-center pt-3">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a class="text-muted" href="https://qiita.com/benisho_ga/items/50e674fded183a9e12f1">
+            About SIRO-lang
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="text-muted" href="https://twitter.com/app1e_s">
+            Contact
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="text-muted"
+            href="https://twitter.com/intent/tweet?text=シロ組さん専用のプログラミング言語「siro」オンラインインタープリター&url=https://yameholo.github.io/SiroLangInterpreter">
+            Share
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="text-muted" href="https://github.com/yameholo/SiroLangInterpreter">
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-copyright text-center pb-2 text-muted">
+      © 2020
+      <a href="https://twitter.com/app1e_s">meiehi</a>
+    </div>
+  </footer>
+</body>
+
+</html>
