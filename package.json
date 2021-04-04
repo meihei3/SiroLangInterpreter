@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/yameholo/SiroLangInterpreter#readme",
   "devDependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
